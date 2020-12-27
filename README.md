@@ -1,6 +1,6 @@
 # MWI Check
 
-[TOC]
+
 
 ## Introduction
 Iinitially I wrote this library for my own use. Owning a FritzBox 7430 I wanted to use its answering machine function. The problem was, however, that the FritzBox is not easily accessible, so when coming home I am unable to see the boxes INFO LED. This LED is meant to signal new messages on the anwering machine.
@@ -44,7 +44,7 @@ This code is meant to be used in a private network. It doesn't use encryption li
 
 The server on the other hand is never authenticated.
 
-Worst case, an attacker frim within your network could listen in on the exchanged SIP messages. So they could gain the MWI status data. They could also pretend to be the server and send false MWI data.
+Worst case, an attacker from within your network could listen in on the exchanged SIP messages. So they could gain the MWI status data. They could also pretend to be the server and send false MWI data.
 
 In a private network this is somewhat unlikely and will probably cause no real harm. But at the end of the day you have to assess the risk for yourself.
 
@@ -70,13 +70,13 @@ On my FritzBox, I get the following messages (TX: transmit / RX: receive):
 ## Examples
 **Simple** is a very simple demonstration of the library. It shows the usage of the available functions. All connection details, credentials etc. have to be set in the code.
 
-##References
+## References
 [RFC3261](https://tools.ietf.org/html/rfc3261) - SIP: Session Initiation Protocol
 [RFC6665](https://tools.ietf.org/html/rfc6665) -  SIP-Specific Event Notification
 [RFC3842](https://tools.ietf.org/html/rfc3842) -  A Message Summary and Message Waiting Indication Event Package for the Session Initiation Protocol (SIP)
 [SIP](https://en.wikipedia.org/wiki/Session_Initiation_Protocol)(Wikipedia)
 
-##Attribution
+## Attribution
 I took some inspiration from the [ArduinoSIP library](https://github.com/dl9sec/ArduinoSIP), by Juergen Liegner / Thorsten Godau - especially how to calculate the MD5 digest. This saved me from digging through even more RFCs. The implementation however is my own.
 
 ## TODO
