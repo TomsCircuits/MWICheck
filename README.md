@@ -1,15 +1,30 @@
 # MWI Check
 
+## Table of Contents
+* [Introduction](#Introduction)
+* [Usage](#Usage)
+* [Functions](#Functions)
+* [Security](#Security)
+* [Limitations](#Limitations)
+* [Troubleshooting](#Troubleshooting)
+* [Examples](#Examples)
+* [Implementation Notes](#Implementation Notes)
+* [Attribution](#Attribution)
+* [References](#References)
+* [License](#License)
+* [TODO](#TODO)
 
 
 ## Introduction
-Iinitially I wrote this library for my own use. Owning a FritzBox 7430 I wanted to use its answering machine function. The problem was, however, that the FritzBox is not easily accessible, so when coming home I am unable to see the boxes INFO LED. This LED is meant to signal new messages on the anwering machine.
+Iinitially I wrote this library for my own use. Owning a FritzBox 7430 I wanted to use its answering machine function. The problem was, however, that the FritzBox is not easily accessible, so when coming home I was unable to see the boxes blinking INFO LED. This LED is meant to signal new messages on the anwering machine.
 
-My solution comes in the form of an ESP8266. It partially mimics a SIP phone, subscribing to the "Message Waiting Indication Event" (RFC3842, RFC6665) and signals the result with an external LED. The ESP8266 due to its WiFi network connection is very mobile and can be placed anywhere in my home.
+My solution comes in the form of an ESP8266. It partially mimics a SIP phone, subscribing to the "Message Waiting Indication Event" on the FritzBox (RFC3842, RFC6665) and signals the result with an external LED. The ESP8266 due to its WiFi network connection is very mobile and can be placed anywhere in my home.
 
-Another use case could the integration of the answering machine into a home automation system, e.g. by sending MQTT messages.
+Another use case could be the integration of the answering machine into a home automation system, e.g. by sending MQTT messages.
 
 Note that this solution is not intended for battery operation. No considerations were given to power saving. So I recommend the use of a mains-fed 5V supply.
+
+The latest version of this library is available on  [https://github.com/TomsCircuits/MWICheck](https://github.com/TomsCircuits/MWICheck).
 
 ## Usage
 The library is relatively easy to use. There are only two functions: The **Init** and the **Handler** function. They go in the setup() and loop() part of the Arduino code respectively.
@@ -21,7 +36,7 @@ Of course your SIP server must be configured to have a SIP account for this devi
 ## Functions
 ### Init
 ```
-    int16_t Init(String SipIp, uint16_t SipPort, String SipUser, String SipPasswd);
+int16_t Init(String SipIp, uint16_t SipPort, String SipUser, String SipPasswd);
 ```
 The Init function initialises the class and initiates the subscription to the MWI event. It takes a few parameters:
 * SipIp, the IP address if the SIP server (e.g. your FritzBox, e.g. 192.168.0.1)
@@ -70,14 +85,26 @@ On my FritzBox, I get the following messages (TX: transmit / RX: receive):
 ## Examples
 **Simple** is a very simple demonstration of the library. It shows the usage of the available functions. All connection details, credentials etc. have to be set in the code.
 
+**MWI2MQTT** is a relatively complex example. It uses WifiManager to get Wifi credentials, as well as SIP and MQTT server details. When a change of the MWI status is detected, an MQTT message is sent. This example is cobbled together from the examples of all used libraries and might be useful for home automation systems unaltered.
+
+## Implementation Notes
+The library basically exchanges a couple of text messages with the SIP server. This is very similar to talking to an HTML server. SIP gives you the choice to use either TCP or UDP for this. While UDP makes sense for real-time communication, I felt that for this application TCP makes more sense. And it made implementing it easier.
+
+Communication goes in two directions. First, the client needs to subscribe to the MWI event. This is done through a WiFiClient instance. Second, the client must listen to any NOTIFY message from the SIP server. This is done through a WiFiServer.
+
+
+## Attribution
+I took some inspiration from the [ArduinoSIP library](https://github.com/dl9sec/ArduinoSIP), by Juergen Liegner / Thorsten Godau - especially how to calculate the MD5 digest. This saved me from digging through even more RFCs. The implementation however is my own.
+
 ## References
 - [RFC3261](https://tools.ietf.org/html/rfc3261) - SIP: Session Initiation Protocol
 - [RFC6665](https://tools.ietf.org/html/rfc6665) -  SIP-Specific Event Notification
 - [RFC3842](https://tools.ietf.org/html/rfc3842) -  A Message Summary and Message Waiting Indication Event Package for the Session Initiation Protocol (SIP)
-- [SIP](https://en.wikipedia.org/wiki/Session_Initiation_Protocol)(Wikipedia)
+- [SIP](https://en.wikipedia.org/wiki/Session_Initiation_Protocol) (Wikipedia)
+- [ArduinoSIP library](https://github.com/dl9sec/ArduinoSIP)
 
-## Attribution
-I took some inspiration from the [ArduinoSIP library](https://github.com/dl9sec/ArduinoSIP), by Juergen Liegner / Thorsten Godau - especially how to calculate the MD5 digest. This saved me from digging through even more RFCs. The implementation however is my own.
+## License
+This library is published under the [GNU GPL v3.0 ](https://opensource.org/licenses/GPL-3.0)license.
 
 ## TODO
 * Move strings to program memory - save RAM

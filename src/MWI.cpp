@@ -17,7 +17,7 @@
 #include <Arduino.h>
 #include <MWI.h>
 
-#define DEBUGLOG
+//#define DEBUGLOG // Use this to see (a lot of) status information
 
 WiFiServer sip_server(MY_SIP_PORT); // This is the server through which the UAS sends their NOTIFY messages.
 

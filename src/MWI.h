@@ -23,13 +23,13 @@
 #include <ESP8266WiFi.h>
 #include <WiFiServer.h>
 
-#define MY_SIP_PORT 5060    // This is where our own WiFiServer listens for NOTIFY messages from the UAS
+#define MY_SIP_PORT 5060 // This is where our own WiFiServer listens for NOTIFY messages from the UAS
 
 // timeouts in milliseconds
 #define TIMEOUT_SUBSCRIBE 32 * 1000UL      // 32 sec / Timer N in RFC6665
-#define TIMEOUT_TERMINATED 2 * 60 * 1000UL // debug: 5 min / If subscription fails, try again after 5 min
+#define TIMEOUT_TERMINATED 5 * 60 * 1000UL // 5 min / If subscription fails, try again after 5 min
 // timeout in seconds
-#define TIMEOUT_EXPIRE 360UL // debug: 3600 sec as recommended by RFC3842 / Re-subsciption intervall
+#define TIMEOUT_EXPIRE 3600UL // 3600 sec as recommended by RFC3842 / Re-subsciption intervall
 
 class MWI
 {
