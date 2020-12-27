@@ -71,10 +71,10 @@ On my FritzBox, I get the following messages (TX: transmit / RX: receive):
 **Simple** is a very simple demonstration of the library. It shows the usage of the available functions. All connection details, credentials etc. have to be set in the code.
 
 ## References
-[RFC3261](https://tools.ietf.org/html/rfc3261) - SIP: Session Initiation Protocol
-[RFC6665](https://tools.ietf.org/html/rfc6665) -  SIP-Specific Event Notification
-[RFC3842](https://tools.ietf.org/html/rfc3842) -  A Message Summary and Message Waiting Indication Event Package for the Session Initiation Protocol (SIP)
-[SIP](https://en.wikipedia.org/wiki/Session_Initiation_Protocol)(Wikipedia)
+- [RFC3261](https://tools.ietf.org/html/rfc3261) - SIP: Session Initiation Protocol
+- [RFC6665](https://tools.ietf.org/html/rfc6665) -  SIP-Specific Event Notification
+- [RFC3842](https://tools.ietf.org/html/rfc3842) -  A Message Summary and Message Waiting Indication Event Package for the Session Initiation Protocol (SIP)
+- [SIP](https://en.wikipedia.org/wiki/Session_Initiation_Protocol)(Wikipedia)
 
 ## Attribution
 I took some inspiration from the [ArduinoSIP library](https://github.com/dl9sec/ArduinoSIP), by Juergen Liegner / Thorsten Godau - especially how to calculate the MD5 digest. This saved me from digging through even more RFCs. The implementation however is my own.
